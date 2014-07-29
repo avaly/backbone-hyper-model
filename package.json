@@ -1,0 +1,52 @@
+{
+  "name": "backbone-hyper-model",
+  "version": "0.0.0",
+  "description": "Enhanced version of Backbone Model and Collection",
+  "main": "index.js",
+  "author": {
+    "name": "Valentin Agachi",
+    "url": "http://agachi.name/"
+  },
+  "homepage": "https://github.com/avaly/backbone-hyper-model",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/avaly/backbone-hyper-model.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avaly/backbone-hyper-model/issues"
+  },
+  "keywords": [
+    "backbone",
+    "model",
+    "collection",
+    "hyper",
+    "nested",
+    "transforms"
+  ],
+  "license": "ISC",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "files": [
+    "README.md",
+    "index.js",
+    "lib"
+  ],
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "underscore": "^1.6.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.1",
+    "gulp": "^3.8.6",
+    "gulp-jscs": "^1.0.0",
+    "gulp-jshint": "^1.8.1",
+    "gulp-mocha": "^0.5.2",
+    "istanbul": "^0.3.0",
+    "mocha": "^1.20.1",
+    "mocha-istanbul": "^0.2.0"
+  }
+}
