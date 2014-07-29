@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Do not publish docs for pull requests
+if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then
+	echo "Building docs only for commits on master branch!"
+	exit 0
+fi
+if [[ "$TRAVIS_JOB_NUMBER" != *.1 ]]; then
+	echo "Building docs only for first Travis job!"
+	exit 0
+fi
+
+DOCS_BUILD="./docs"
+DOCS_REPO="/tmp/backbone-hyper-model-docs"
+
+rm -rf $DOCS_BUILD $DOCS_REPO
+git config --global user.name "Travis CI"
+git config --global user.email "travis@travis-ci.com"
+git clone -v --branch gh-pages https://${GH_TOKEN}@github.com/avaly/backbone-hyper-model.git $DOCS_REPO
+# node_modules/.bin/yuidoc
+cd $DOCS_BUILD
+rsync -rt --exclude=".git" . $DOCS_REPO
+cd $DOCS_REPO
+git add --all .
+git commit -m "Documentation update for $TRAVIS_COMMIT"
+git push origin gh-pages
