@@ -10,9 +10,6 @@ Backbone Model and Collection on steroids.
 - ES5 attribute getters/setters
 - nested models
 - type casting for attributes
-
-## Planned features
-
 - type casting in deep objects
 
 ## License

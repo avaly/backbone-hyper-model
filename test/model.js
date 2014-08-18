@@ -1,6 +1,7 @@
 var assert = require('assert'),
 	_ = require('underscore'),
 	hyper = require('./../'),
+	Type = hyper.Type,
 	Model = hyper.Model,
 	errors = hyper.errors;
 
@@ -31,6 +32,14 @@ suite('model:', function() {
 				id: String,
 				name: String,
 				leader: this.Person
+			},
+			typesDeep: {
+				medals: {
+					winner: Type.of(this.Person),
+					previous: {
+						winner: Type.of(this.Person)
+					}
+				}
 			}
 		});
 
@@ -246,6 +255,34 @@ suite('model:', function() {
 			assert.equal(json.marketing.leader.name, '123');
 			assert.equal(json.marketing.leader.employed_at, '2013-12-11T20:21:22.000Z');
 			assert.equal(json.marketing.leader.salary, 123456);
+		});
+	});
+
+	suite('type casting in deep objects', function() {
+		test('from JSON', function() {
+			var department = new this.Department({
+					id: 'marketing',
+					name: 'Markting FTW',
+					medals: {
+						bogus: false,
+						winner: {
+							name: 123
+						},
+						previous: {
+							winner: {
+								name: 234
+							}
+						}
+					}
+				});
+
+			assert.equal(department.id, 'marketing');
+
+			assert.ok(department.get('medals').winner instanceof this.Person);
+			assert.equal(department.get('medals').winner.name, '123');
+
+			assert.ok(department.get('medals').previous.winner instanceof this.Person);
+			assert.equal(department.get('medals').previous.winner.name, '234');
 		});
 	});
 
