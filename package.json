@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.1",
+    "doxstrap": "git+http://github.com/avaly/doxstrap.git#a1d6db5f36b38f8aca49881c8c2889f0e0341cef",
     "gulp": "^3.8.6",
     "gulp-jscs": "^1.0.0",
     "gulp-jshint": "^1.8.1",

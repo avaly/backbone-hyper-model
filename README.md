@@ -3,7 +3,11 @@
 [![Build Status](https://travis-ci.org/avaly/backbone-hyper-model.svg)](https://travis-ci.org/avaly/backbone-hyper-model)
 [![Coverage Status](https://coveralls.io/repos/avaly/backbone-hyper-model/badge.png)](https://coveralls.io/r/avaly/backbone-hyper-model)
 
-Backbone Model and Collection on steroids.
+Backbone Model on steroids.
+
+## Documentation
+
+Documentation is available here: http://avaly.github.io/backbone-hyper-model
 
 ## Features
 

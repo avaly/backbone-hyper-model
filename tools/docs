@@ -17,9 +17,12 @@ rm -rf $DOCS_BUILD $DOCS_REPO
 git config --global user.name "Travis CI"
 git config --global user.email "travis@travis-ci.com"
 git clone -v --branch gh-pages https://${GH_TOKEN}@github.com/avaly/backbone-hyper-model.git $DOCS_REPO
-# node_modules/.bin/yuidoc
+
+node_modules/.bin/doxstrap --title "Backbone Hyper Model" --source "lib/model.js:lib/type.js:lib/errors.js" --output $DOCS_BUILD
+
 cd $DOCS_BUILD
 rsync -rt --exclude=".git" . $DOCS_REPO
+
 cd $DOCS_REPO
 git add --all .
 git commit -m "Documentation update for $TRAVIS_COMMIT"
