@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Backbone Hyper Model</title>
+
+        <link rel="stylesheet" href="static/bootstrap.min.css">
+        <link rel="stylesheet" href="static/prism.css">
+
+        <style type="text/css">
+
+            .wrap {
+                display: -webkit-flex;
+                display: flex;
+            }
+
+            h1 {
+                color: #FFF;
+                background-color: #333;
+                margin: 0 0 0.3em 0;
+                padding: 5px;
+                font-size: 20px;
+            }
+
+            nav {
+                width: 200px;
+            }
+
+            .content {
+                -webkit-flex: 1;
+                flex: 1;
+                max-width: 1000px;
+            }
+
+            section > .block {
+                padding-left: 3em;
+            }
+
+            h3 {
+                font-size: 28px;
+                letter-spacing: 2px;
+            }
+
+            h3 em {
+                letter-spacing: 0;
+                color: #DDD;
+            }
+
+            pre code {
+                font-family: Courier, monospace !important;
+                font-weight: normal;
+                color: #222222 !important;
+            }
+
+            pre[class*="language-"] {
+                margin-top: 0;
+                /*padding-top: 0;*/
+            }
+
+            nav ul {
+                padding-left: 1em;
+                list-style: none;
+            }
+
+            .nav ul ul a {
+                padding: 0 10px;
+            }
+
+            .nav-tabs {
+                margin-top: 1em;
+            }
+
+            .nav-tabs li a {
+                padding: 4px 15px;
+                font-weight: 700;
+            }
+
+            .nav-tabs li.active a {
+                border-color: #ccc;
+                border-bottom-color: transparent;
+                background-color: #f5f2f0;
+                color: #333;
+            }
+            .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+                background-color: #f5f2f0;
+            }
+
+            /*code,*/
+            pre {
+                /*background-color: #FFF !important;*/
+                border-top: none;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            .table {
+                border: none;
+                width: auto;
+            }
+            .table>tbody>tr>td,
+            .table>thead>tr>th {
+                border: none;
+            }
+            .table-condensed>thead>tr>th,
+            .table-condensed>tbody>tr>td {
+                padding: 3px 10px 3px 0;
+            }
+            section {
+                margin: 0;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <h1>Backbone Hyper Model</h1>
+
+        <div class="wrap">
+
+            <nav>
+                <ul>
+                
+                    <li>
+                        <a href="#model"><strong>Model</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#model-extend">extend</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#type"><strong>Type</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#type-of">of</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                    <li>
+                        <a href="#errors"><strong>Errors</strong></a>
+                        
+                        <ul class="">
+                            
+                                <li><a href="#errors-propertyConflict">propertyConflict</a></li>
+                            
+                                <li><a href="#errors-unknownAttribute">unknownAttribute</a></li>
+                            
+                        </ul>
+                        
+                    </li>
+                
+                </ul>
+            </nav>
+
+            <div class="content">
+
+                
+                    
+                    <section id="model">
+
+                        <h2>Model</h2>
+
+                        
+
+                            
+                            
+                            <section id="model-extend">
+
+                            
+
+                                <h3>
+                                    extend
+                                    <em> (protoProps, staticProps)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Extends the Model with the following features defined via <code>protoProps</code>:</p><ul>
+<li><code>types</code>: an object hash defining the types and attributes name which should be used for conversion when setting the values of those attributes</li>
+<li><code>typesDeep</code>: an deep object hash defining which deep object attributes should be converted; the individual deep properties types should be defined using <code>Type.of(Constructor)</code></li>
+<li><code>properties</code>: an array of attribute names which are just created as native properties on the Model</li>
+</ul>
+
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>protoProps</em></td>
+                                                <td><span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>staticProps</em></td>
+                                                <td><span class="label label-primary">Object</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">HyperModel</span>
+                                        &nbsp;
+                                        
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#extend-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#extend-example-1" data-toggle="tab">Example</a></li>
+                                        
+                                        <li ><a href="#extend-example-2" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#extend-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="extend-example-0">
+                                            <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
+  var Person = Hyper.Model.extend({
+    types: {
+      name: String,
+      employed_at: Date,
+      salary: Number
+    }
+  });
+  var person = new Person();
+
+  // Types are created as native properties on the Model and are converted to their specific types
+  person.name = &#x27;John&#x27;;
+  person.employed_at = &#x27;2013-06-23 12:14:00&#x27;;
+  console.log(person.employed_at.getTime()); // Attribute was converted to Date
+  person.salary = &#x27;123456&#x27;;
+  console.log(typeof person.salary); // Number
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="extend-example-1">
+                                            <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
+  var Person = Hyper.Model.extend({
+    properties: [&#x27;gender&#x27;, &#x27;age&#x27;]
+  });
+  var person = new Person();
+
+  // Properties are just created as native properties on the Model
+  person.gender = &#x27;male&#x27;;
+  person.age = 35;
+</code></pre>
+                                        </div>
+                                        
+                                        <div class=" tab-pane" id="extend-example-2">
+                                            <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
+  var Type = Hyper.Type;
+  var Person = Hyper.Model.extend({
+    typesDeep: {
+      dates: {
+        employed_at: Type.of(Date),
+        other: {
+          fired_at: Type.of(Date)
+        }
+      }
+    }
+  });
+  var person = new Person({
+    dates: {
+      employed_at: &#x27;2013-06-23 12:14:00&#x27;,
+      other: {
+        fired_at: &#x27;2014-03-16 15:25:00&#x27;
+      }
+    }
+  });
+
+  // Deep types are only converted to their specific types
+  console.log(person.get(&#x27;dates&#x27;).employed_at.getTime()); // Attribute was converted to Date
+  console.log(person.get(&#x27;dates&#x27;).other.fired_at.getTime()); // Attribute was converted to Date
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="extend-source">
+                                            <pre><code class="language-javascript">HyperModel.extend = function(protoProps, staticProps) {
+	protoProps._types = protoProps.types || {};
+	if (protoProps.types) {
+		delete protoProps.types;
+	}
+	protoProps._typesDeep = protoProps.typesDeep || {};
+	if (protoProps.typesDeep) {
+		delete protoProps.typesDeep;
+	}
+	protoProps._properties = protoProps.properties || {};
+	if (protoProps.properties) {
+		delete protoProps.properties;
+	}
+
+	var Model = originalExtend.call(this, protoProps, staticProps);
+
+	createNativeProperties(Model, protoProps);
+
+	return Model;
+};
+
+module.exports = HyperModel;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="type">
+
+                        <h2>Type</h2>
+
+                        
+
+                            
+                            
+                            <section id="type-of">
+
+                            
+
+                                <h3>
+                                    of
+                                    <em> (ctor)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Initializer helper method</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>ctor</em></td>
+                                                <td><span class="label label-primary">Function</span></td>
+                                                <td>
+                                                    
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+                                    <p><strong>Returns</strong><br>
+                                        
+                                        <span class="label label-primary">Type</span>
+                                        &nbsp;
+                                        
+                                        
+                                        <!--
+                                        &nbsp;
+
+                                        -->
+                                        
+                                    </p>
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#of-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#of-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="of-example-0">
+                                            <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
+  var Type = Hyper.Type;
+  Type.of(Date); // returns a new Type object
+</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="of-source">
+                                            <pre><code class="language-javascript">Type.of = function(ctor) {
+	return new Type(ctor);
+};
+
+module.exports = Type;</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+                    
+                    <section id="errors">
+
+                        <h2>Errors</h2>
+
+                        
+
+                            
+                            
+                            <section id="errors-propertyConflict">
+
+                            
+
+                                <h3>
+                                    propertyConflict
+                                    <em> (context, key)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Property conflict error handler</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>context</em></td>
+                                                <td><span class="label label-primary">Model</span></td>
+                                                <td>
+                                                    Model object which triggered the error
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>key</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    The attribute key which caused the conflict
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#propertyConflict-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#propertyConflict-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="propertyConflict-example-0">
+                                            <pre><code class="language-javascript">// Sorry, no example available.</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="propertyConflict-source">
+                                            <pre><code class="language-javascript">exports.propertyConflict = function(context, key) {
+	console.error(&#x27;[backbone-hyper-model error](extend) Property &#x27; +
+		key + &#x27; conflicts with base class members&#x27;);
+};</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+
+                            
+                            
+                            <section id="errors-unknownAttribute">
+
+                            
+
+                                <h3>
+                                    unknownAttribute
+                                    <em> (context, key, value)</em>
+                                </h3>
+
+                                <div class="block">
+
+                                    <p>Unknown attribute error handler</p>
+
+                                    
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="3">Arguments</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                            <tr>
+                                                <td><em>context</em></td>
+                                                <td><span class="label label-primary">Model</span></td>
+                                                <td>
+                                                    Model object which triggered the error
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>key</em></td>
+                                                <td><span class="label label-primary">String</span></td>
+                                                <td>
+                                                    The attribute key which does not have a type defined
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td><em>value</em></td>
+                                                <td><span class="label label-primary">Mixed</span></td>
+                                                <td>
+                                                    The value of the attribute key
+                                                    
+                                                    
+
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+
+                                    
+
+                                    <ul class="nav nav-tabs">
+                                        
+                                        <li class="active"><a href="#unknownAttribute-example-0" data-toggle="tab">Example</a></li>
+                                        
+                                        <li>
+                                            <a href="#unknownAttribute-source" data-toggle="tab">Source</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        
+                                        <div class="active tab-pane" id="unknownAttribute-example-0">
+                                            <pre><code class="language-javascript">// Sorry, no example available.</code></pre>
+                                        </div>
+                                        
+                                        <div class="tab-pane" id="unknownAttribute-source">
+                                            <pre><code class="language-javascript">exports.unknownAttribute = function(context, key, value) {
+	console.error(&#x27;[backbone-hyper-model error](set) Attribute &quot;&#x27; +
+		key + &#x27;&quot; has no type.&#x27;, value, &#x27;In model&#x27;, context);
+};</code></pre>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            
+                            </section>
+                            
+                            
+                        
+                    </section>
+                    
+                
+            </div>
+        </div>
+        <script src="static/domtastic.min.js"></script>
+        <script>
+            $('.content').on('click', '.nav-tabs a', function(event) {
+
+                event.preventDefault();
+
+                var tabContainer = $(event.target).closest('.nav-tabs'),
+                        tabs = tabContainer.find('li'),
+                        tabsContent = tabContainer.parent().find('.tab-pane'),
+                        index = tabContainer.find('a').indexOf(event.target);
+
+                tabs.removeClass('active').eq(index).addClass('active');
+                tabsContent.removeClass('active').eq(index).addClass('active');
+
+            });
+        </script>
+        <script src="static/prism.js"></script>
+    </body>
+</html>
