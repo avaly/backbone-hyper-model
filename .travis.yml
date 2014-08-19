@@ -23,7 +23,7 @@ deploy:
   provider: npm
   email: github-com@agachi.name
   api_key:
-    secure: mbgGlJGgLteOROnKiNcR+DJf5rSx8Ol+2qt5vkxWFsZYdnBi0DW4Z3iScmtWaZVUUDyqf0WT+p/Q9Ef5qM8/Gn7Ryt8bs6U6H+3zKBf7ZUBf+Wg242gFtQQwPrykb5PylN0O55EOaOjDEs9RXEPsjeCa/m64lQOc2hU6P+pI4a8=
+    secure: "EfOGOLLMiqi1L7+6BgC64VTU1jrJ2WJGc5jLUwkUZenMuxlKRgfqDKnPNjT6Bm+rhRNCJJ8d+oe4oSYpECeEZmch7KK1mV6bHqCHN5NTIzEL1G5RJhQ0myquIVJ7vWe/3gUEvmytByDRCi7bZDyPMWhURajds7G7KMUZGITB/jE="
   on:
     tags: true
     repo: avaly/backbone-hyper-model
