@@ -1,7 +1,7 @@
 {
   "name": "backbone-hyper-model",
   "version": "1.0.0",
-  "description": "Enhanced version of Backbone Model and Collection",
+  "description": "Enhanced version of Backbone Model",
   "main": "index.js",
   "author": {
     "name": "Valentin Agachi",

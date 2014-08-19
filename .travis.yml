@@ -13,7 +13,7 @@ branches:
 
 env:
   global:
-    - secure: "MgR802lgNK7hCjupbXQkSj6sRxrLO9pO+gvhV5S9X9LkQfaZL3jYgkM8+26dra4Bqtj79VhbgUBIoqzFWQyHN0RobOaJFzN5DbrAnklZ0LNsTeANEeczSa7FJxy9h2mbPPZFNix3HJnFcnRa3vHfVedIeqJEZ1NYX9+iFo/OgZQ="
+    - secure: "O1YZIFmkKMJ0ZSnwc43PnRN5LhZGFsRnQm99RLYm4vkb5jg49rYCkekpNoullpqc+/Msz88KetbdMZciBiB+9S2gL4jAJLjWPIQrwwkrCPwslE5FVc8jMNiuTV7SMel3M5V3A7Ss1O5Er7NQUlEdChMMT4FACU0NjCFQGG/3xHI="
 
 after_success:
   - "./tools/coverage"
