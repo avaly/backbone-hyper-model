@@ -1,6 +1,6 @@
 {
   "name": "backbone-hyper-model",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Enhanced version of Backbone Model",
   "main": "index.js",
   "author": {
