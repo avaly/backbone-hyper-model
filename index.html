@@ -280,21 +280,21 @@
                                             <pre><code class="language-javascript">HyperModel.extend = function(protoProps, staticProps) {
 	var BaseProto = this.prototype;
 
-	protoProps._types = BaseProto._types || {};
+	protoProps._types = extend(true, {}, BaseProto._types || {});
 	if (protoProps.types) {
-		_.extend(protoProps._types, protoProps.types);
+		protoProps._types = extend(true, protoProps._types, protoProps.types);
 		delete protoProps.types;
 	}
 
-	protoProps._typesDeep = BaseProto._typesDeep || {};
+	protoProps._typesDeep = extend(true, {}, BaseProto._typesDeep || {});
 	if (protoProps.typesDeep) {
 		protoProps._typesDeep = extend(true, protoProps._typesDeep, protoProps.typesDeep);
 		delete protoProps.typesDeep;
 	}
 
-	protoProps._properties = BaseProto._properties || {};
+	protoProps._properties = extend(true, {}, BaseProto._properties || {});
 	if (protoProps.properties) {
-		_.extend(protoProps._properties, protoProps.properties);
+		protoProps._properties = extend(true, protoProps._properties, protoProps.properties);
 		delete protoProps.properties;
 	}
 
