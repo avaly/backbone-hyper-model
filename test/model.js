@@ -8,7 +8,7 @@ var assert = require('assert'),
 function disableErrors() {
 	_.each(errors, function(value, key) {
 		errors[key] = function() {};
-	})
+	});
 }
 disableErrors();
 
@@ -33,12 +33,42 @@ suite('model:', function() {
 				name: String,
 				leader: this.Person
 			},
+			properties: [
+				'logo'
+			],
 			typesDeep: {
 				medals: {
 					winner: Type.of(this.Person),
 					previous: {
 						winner: Type.of(this.Person)
 					}
+				}
+			}
+		});
+
+		this.Group = this.Department.extend({
+			types: {
+				code: Number
+			},
+			properties: [
+				'mascot'
+			],
+			typesDeep: {
+				medals: {
+					winnerGroup: Type.of(this.Person)
+				}
+			}
+		});
+		this.GroupAlt = this.Department.extend({
+			types: {
+				code: String
+			},
+			properties: [
+				'mascotAlt'
+			],
+			typesDeep: {
+				medals: {
+					winnerGroup: String
 				}
 			}
 		});
@@ -283,6 +313,61 @@ suite('model:', function() {
 
 			assert.ok(department.get('medals').previous.winner instanceof this.Person);
 			assert.equal(department.get('medals').previous.winner.name, '234');
+		});
+	});
+
+	suite('type casting in inherited models', function() {
+		test('from JSON', function() {
+			var group = new this.Group({
+					id: 'business',
+					name: 'Business Group',
+					logo: 'circle',
+					code: '123456',
+					mascot: 'bear',
+					medals: {
+						winner: {
+							name: 123
+						},
+						winnerGroup: {
+							name: 345
+						}
+					}
+				}),
+				groupAlt = new this.GroupAlt({
+					id: 'development',
+					name: 'Dev Group',
+					code: 234567,
+					mascotAlt: 'fish',
+					medals: {
+						winner: {
+							name: 234
+						},
+						winnerGroup: 456
+					}
+				});
+
+			assert.equal(group.id, 'business');
+			assert.equal(group.name, 'Business Group');
+			assert.equal(group.logo, 'circle');
+			assert.equal(group.code, 123456);
+			assert.equal(group.mascot, 'bear');
+
+			assert.ok(group.get('medals').winner instanceof this.Person);
+			assert.equal(group.get('medals').winner.name, '123');
+
+			assert.ok(group.get('medals').winnerGroup instanceof this.Person);
+			assert.equal(group.get('medals').winnerGroup.name, '345');
+
+			assert.equal(groupAlt.id, 'development');
+			assert.equal(groupAlt.name, 'Dev Group');
+			assert.equal(groupAlt.code, '234567');
+			assert.ok(!groupAlt.mascot);
+			assert.equal(groupAlt.mascotAlt, 'fish');
+
+			assert.ok(groupAlt.get('medals').winner instanceof this.Person);
+			assert.equal(groupAlt.get('medals').winner.name, '234');
+
+			assert.equal(groupAlt.get('medals').winnerGroup, '456');
 		});
 	});
 
