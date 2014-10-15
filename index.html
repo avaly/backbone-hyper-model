@@ -292,9 +292,9 @@
 		delete protoProps.typesDeep;
 	}
 
-	protoProps._properties = extend(true, {}, BaseProto._properties || {});
+	protoProps._properties = (BaseProto._properties ? BaseProto._properties.slice() : []);
 	if (protoProps.properties) {
-		protoProps._properties = extend(true, protoProps._properties, protoProps.properties);
+		protoProps._properties = protoProps._properties.concat(protoProps.properties);
 		delete protoProps.properties;
 	}
 
