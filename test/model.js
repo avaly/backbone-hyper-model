@@ -336,6 +336,7 @@ suite('model:', function() {
 				groupAlt = new this.GroupAlt({
 					id: 'development',
 					name: 'Dev Group',
+					logo: 'square',
 					code: 234567,
 					mascotAlt: 'fish',
 					medals: {
@@ -360,6 +361,7 @@ suite('model:', function() {
 
 			assert.equal(groupAlt.id, 'development');
 			assert.equal(groupAlt.name, 'Dev Group');
+			assert.equal(groupAlt.logo, 'square');
 			assert.equal(groupAlt.code, '234567');
 			assert.ok(!groupAlt.mascot);
 			assert.equal(groupAlt.mascotAlt, 'fish');
@@ -372,15 +374,24 @@ suite('model:', function() {
 	});
 
 	suite('errors', function() {
+		setup(function() {
+			var self = this;
+
+			self.propertyConflict = [];
+			self.unknownAttribute = [];
+
+			errors.propertyConflict = function(context, name) {
+				self.propertyConflict.push(name);
+			};
+			errors.unknownAttribute = function(context, name) {
+				self.unknownAttribute.push(name);
+			};
+		});
+
 		teardown(disableErrors);
 
 		test('property conflicts', function() {
-			var errorList = [],
-				TestModel;
-
-			errors.propertyConflict = function(context, name) {
-				errorList.push(name);
-			};
+			var TestModel;
 
 			TestModel = Model.extend({
 				types: {
@@ -389,16 +400,27 @@ suite('model:', function() {
 				properties: ['attributes']
 			});
 
-			assert.deepEqual(errorList, ['cid', 'attributes']);
+			assert.deepEqual(this.propertyConflict, ['cid', 'attributes']);
+		});
+
+		test('property conflicts in inherited models', function() {
+			var BaseModel, TestModel;
+
+			BaseModel = Model.extend({
+				types: {
+					foo: Number
+				},
+				properties: ['bar']
+			});
+			TestModel = BaseModel.extend({
+				properties: ['ham']
+			});
+
+			assert.deepEqual(this.propertyConflict, []);
 		});
 
 		test('unknown attribute', function() {
-			var errorList = [],
-				TestModel;
-
-			errors.unknownAttribute = function(context, name) {
-				errorList.push(name);
-			};
+			var TestModel;
 
 			TestModel = Model.extend({});
 			new TestModel({
@@ -406,7 +428,7 @@ suite('model:', function() {
 				bar: 'ham'
 			});
 
-			assert.deepEqual(errorList, ['foo', 'bar']);
+			assert.deepEqual(this.unknownAttribute, ['foo', 'bar']);
 		});
 	});
 });
