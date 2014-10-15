@@ -121,60 +121,37 @@
 
             <nav>
                 <ul>
-                
                     <li>
                         <a href="#model"><strong>Model</strong></a>
-                        
                         <ul class="">
-                            
                                 <li><a href="#model-extend">extend</a></li>
-                            
                         </ul>
-                        
                     </li>
-                
                     <li>
                         <a href="#type"><strong>Type</strong></a>
-                        
                         <ul class="">
-                            
                                 <li><a href="#type-of">of</a></li>
-                            
                         </ul>
-                        
                     </li>
-                
                     <li>
                         <a href="#errors"><strong>Errors</strong></a>
-                        
                         <ul class="">
-                            
                                 <li><a href="#errors-propertyConflict">propertyConflict</a></li>
-                            
                                 <li><a href="#errors-unknownAttribute">unknownAttribute</a></li>
-                            
                         </ul>
-                        
                     </li>
-                
                 </ul>
             </nav>
 
             <div class="content">
 
-                
-                    
                     <section id="model">
 
                         <h2>Model</h2>
 
-                        
 
-                            
-                            
                             <section id="model-extend">
 
-                            
 
                                 <h3>
                                     extend
@@ -190,7 +167,6 @@
 </ul>
 
 
-                                    
                                     <table class="table table-condensed">
                                         <thead>
                                             <tr>
@@ -198,7 +174,6 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
                                             <tr>
                                                 <td><em>protoProps</em></td>
                                                 <td><span class="label label-primary">Object</span></td>
@@ -209,7 +184,6 @@
 
                                                 </td>
                                             </tr>
-                                            
                                             <tr>
                                                 <td><em>staticProps</em></td>
                                                 <td><span class="label label-primary">Object</span></td>
@@ -220,14 +194,10 @@
 
                                                 </td>
                                             </tr>
-                                            
                                         </tbody>
                                     </table>
-                                    
 
-                                    
                                     <p><strong>Returns</strong><br>
-                                        
                                         <span class="label label-primary">HyperModel</span>
                                         &nbsp;
                                         
@@ -236,25 +206,18 @@
                                         &nbsp;
 
                                         -->
-                                        
                                     </p>
-                                    
 
                                     <ul class="nav nav-tabs">
-                                        
                                         <li class="active"><a href="#extend-example-0" data-toggle="tab">Example</a></li>
-                                        
                                         <li ><a href="#extend-example-1" data-toggle="tab">Example</a></li>
-                                        
                                         <li ><a href="#extend-example-2" data-toggle="tab">Example</a></li>
-                                        
                                         <li>
                                             <a href="#extend-source" data-toggle="tab">Source</a>
                                         </li>
                                     </ul>
 
                                     <div class="tab-content">
-                                        
                                         <div class="active tab-pane" id="extend-example-0">
                                             <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
   var Person = Hyper.Model.extend({
@@ -274,7 +237,6 @@
   console.log(typeof person.salary); // Number
 </code></pre>
                                         </div>
-                                        
                                         <div class=" tab-pane" id="extend-example-1">
                                             <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
   var Person = Hyper.Model.extend({
@@ -287,7 +249,6 @@
   person.age = 35;
 </code></pre>
                                         </div>
-                                        
                                         <div class=" tab-pane" id="extend-example-2">
                                             <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
   var Type = Hyper.Type;
@@ -315,19 +276,25 @@
   console.log(person.get(&#x27;dates&#x27;).other.fired_at.getTime()); // Attribute was converted to Date
 </code></pre>
                                         </div>
-                                        
                                         <div class="tab-pane" id="extend-source">
                                             <pre><code class="language-javascript">HyperModel.extend = function(protoProps, staticProps) {
-	protoProps._types = protoProps.types || {};
+	var BaseProto = this.prototype;
+
+	protoProps._types = BaseProto._types || {};
 	if (protoProps.types) {
+		_.extend(protoProps._types, protoProps.types);
 		delete protoProps.types;
 	}
-	protoProps._typesDeep = protoProps.typesDeep || {};
+
+	protoProps._typesDeep = BaseProto._typesDeep || {};
 	if (protoProps.typesDeep) {
+		protoProps._typesDeep = extend(true, protoProps._typesDeep, protoProps.typesDeep);
 		delete protoProps.typesDeep;
 	}
-	protoProps._properties = protoProps.properties || {};
+
+	protoProps._properties = BaseProto._properties || {};
 	if (protoProps.properties) {
+		_.extend(protoProps._properties, protoProps.properties);
 		delete protoProps.properties;
 	}
 
@@ -343,26 +310,15 @@ module.exports = HyperModel;</code></pre>
                                     </div>
 
                                 </div>
-                            
                             </section>
-                            
-                            
-                        
                     </section>
-                    
-                
-                    
                     <section id="type">
 
                         <h2>Type</h2>
 
-                        
 
-                            
-                            
                             <section id="type-of">
 
-                            
 
                                 <h3>
                                     of
@@ -373,7 +329,6 @@ module.exports = HyperModel;</code></pre>
 
                                     <p>Initializer helper method</p>
 
-                                    
                                     <table class="table table-condensed">
                                         <thead>
                                             <tr>
@@ -381,7 +336,6 @@ module.exports = HyperModel;</code></pre>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
                                             <tr>
                                                 <td><em>ctor</em></td>
                                                 <td><span class="label label-primary">Function</span></td>
@@ -392,14 +346,10 @@ module.exports = HyperModel;</code></pre>
 
                                                 </td>
                                             </tr>
-                                            
                                         </tbody>
                                     </table>
-                                    
 
-                                    
                                     <p><strong>Returns</strong><br>
-                                        
                                         <span class="label label-primary">Type</span>
                                         &nbsp;
                                         
@@ -408,28 +358,22 @@ module.exports = HyperModel;</code></pre>
                                         &nbsp;
 
                                         -->
-                                        
                                     </p>
-                                    
 
                                     <ul class="nav nav-tabs">
-                                        
                                         <li class="active"><a href="#of-example-0" data-toggle="tab">Example</a></li>
-                                        
                                         <li>
                                             <a href="#of-source" data-toggle="tab">Source</a>
                                         </li>
                                     </ul>
 
                                     <div class="tab-content">
-                                        
                                         <div class="active tab-pane" id="of-example-0">
                                             <pre><code class="language-javascript">  var Hyper = require(&#x27;backbone-hyper-model&#x27;);
   var Type = Hyper.Type;
   Type.of(Date); // returns a new Type object
 </code></pre>
                                         </div>
-                                        
                                         <div class="tab-pane" id="of-source">
                                             <pre><code class="language-javascript">Type.of = function(ctor) {
 	return new Type(ctor);
@@ -440,26 +384,15 @@ module.exports = Type;</code></pre>
                                     </div>
 
                                 </div>
-                            
                             </section>
-                            
-                            
-                        
                     </section>
-                    
-                
-                    
                     <section id="errors">
 
                         <h2>Errors</h2>
 
-                        
 
-                            
-                            
                             <section id="errors-propertyConflict">
 
-                            
 
                                 <h3>
                                     propertyConflict
@@ -470,7 +403,6 @@ module.exports = Type;</code></pre>
 
                                     <p>Property conflict error handler</p>
 
-                                    
                                     <table class="table table-condensed">
                                         <thead>
                                             <tr>
@@ -478,7 +410,6 @@ module.exports = Type;</code></pre>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
                                             <tr>
                                                 <td><em>context</em></td>
                                                 <td><span class="label label-primary">Model</span></td>
@@ -489,7 +420,6 @@ module.exports = Type;</code></pre>
 
                                                 </td>
                                             </tr>
-                                            
                                             <tr>
                                                 <td><em>key</em></td>
                                                 <td><span class="label label-primary">String</span></td>
@@ -500,28 +430,21 @@ module.exports = Type;</code></pre>
 
                                                 </td>
                                             </tr>
-                                            
                                         </tbody>
                                     </table>
-                                    
 
-                                    
 
                                     <ul class="nav nav-tabs">
-                                        
                                         <li class="active"><a href="#propertyConflict-example-0" data-toggle="tab">Example</a></li>
-                                        
                                         <li>
                                             <a href="#propertyConflict-source" data-toggle="tab">Source</a>
                                         </li>
                                     </ul>
 
                                     <div class="tab-content">
-                                        
                                         <div class="active tab-pane" id="propertyConflict-example-0">
                                             <pre><code class="language-javascript">// Sorry, no example available.</code></pre>
                                         </div>
-                                        
                                         <div class="tab-pane" id="propertyConflict-source">
                                             <pre><code class="language-javascript">exports.propertyConflict = function(context, key) {
 	console.error(&#x27;[backbone-hyper-model error](extend) Property &#x27; +
@@ -531,17 +454,10 @@ module.exports = Type;</code></pre>
                                     </div>
 
                                 </div>
-                            
                             </section>
-                            
-                            
-                        
 
-                            
-                            
                             <section id="errors-unknownAttribute">
 
-                            
 
                                 <h3>
                                     unknownAttribute
@@ -552,7 +468,6 @@ module.exports = Type;</code></pre>
 
                                     <p>Unknown attribute error handler</p>
 
-                                    
                                     <table class="table table-condensed">
                                         <thead>
                                             <tr>
@@ -560,7 +475,6 @@ module.exports = Type;</code></pre>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            
                                             <tr>
                                                 <td><em>context</em></td>
                                                 <td><span class="label label-primary">Model</span></td>
@@ -571,7 +485,6 @@ module.exports = Type;</code></pre>
 
                                                 </td>
                                             </tr>
-                                            
                                             <tr>
                                                 <td><em>key</em></td>
                                                 <td><span class="label label-primary">String</span></td>
@@ -582,7 +495,6 @@ module.exports = Type;</code></pre>
 
                                                 </td>
                                             </tr>
-                                            
                                             <tr>
                                                 <td><em>value</em></td>
                                                 <td><span class="label label-primary">Mixed</span></td>
@@ -593,28 +505,21 @@ module.exports = Type;</code></pre>
 
                                                 </td>
                                             </tr>
-                                            
                                         </tbody>
                                     </table>
-                                    
 
-                                    
 
                                     <ul class="nav nav-tabs">
-                                        
                                         <li class="active"><a href="#unknownAttribute-example-0" data-toggle="tab">Example</a></li>
-                                        
                                         <li>
                                             <a href="#unknownAttribute-source" data-toggle="tab">Source</a>
                                         </li>
                                     </ul>
 
                                     <div class="tab-content">
-                                        
                                         <div class="active tab-pane" id="unknownAttribute-example-0">
                                             <pre><code class="language-javascript">// Sorry, no example available.</code></pre>
                                         </div>
-                                        
                                         <div class="tab-pane" id="unknownAttribute-source">
                                             <pre><code class="language-javascript">exports.unknownAttribute = function(context, key, value) {
 	console.error(&#x27;[backbone-hyper-model error](set) Attribute &quot;&#x27; +
@@ -624,14 +529,8 @@ module.exports = Type;</code></pre>
                                     </div>
 
                                 </div>
-                            
                             </section>
-                            
-                            
-                        
                     </section>
-                    
-                
             </div>
         </div>
         <script src="static/domtastic.min.js"></script>
