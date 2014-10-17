@@ -314,6 +314,35 @@ suite('model:', function() {
 			assert.ok(department.get('medals').previous.winner instanceof this.Person);
 			assert.equal(department.get('medals').previous.winner.name, '234');
 		});
+
+		test('to JSON', function() {
+			var department = new this.Department({
+					id: 'marketing',
+					name: 'Markting FTW',
+					medals: {
+						bogus: false,
+						winner: {
+							name: 123
+						},
+						previous: {
+							winner: {
+								name: 234
+							}
+						}
+					}
+				}),
+				json = department.toJSON();
+
+			assert.equal(json.id, 'marketing');
+
+			assert.ok(json.medals.winner);
+			assert.ok(!(json.medals.winner instanceof this.Person));
+			assert.equal(json.medals.winner.name, '123');
+
+			assert.ok(json.medals.previous.winner);
+			assert.ok(!(json.medals.previous.winner instanceof this.Person));
+			assert.equal(json.medals.previous.winner.name, '234');
+		});
 	});
 
 	suite('type casting in inherited models', function() {
