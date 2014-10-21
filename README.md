@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/avaly/backbone-hyper-model.svg)](https://travis-ci.org/avaly/backbone-hyper-model)
 [![Coverage Status](https://coveralls.io/repos/avaly/backbone-hyper-model/badge.png)](https://coveralls.io/r/avaly/backbone-hyper-model)
 [![Dependencies](https://david-dm.org/avaly/backbone-hyper-model.png)](https://david-dm.org/avaly/backbone-hyper-model)
+[![Flattr this](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=avaly&url=https://github.com/avaly/backbone-hyper-model&title=backbone-hyper-model&language=&tags=github&category=software)
 
 Enhanced version of Backbone Model.
 
