@@ -23,7 +23,11 @@ suite('model:', function() {
 			properties: [
 				'gender',
 				'age'
-			]
+			],
+			parse: function(data) {
+				data.nameDouble = data.name + ' ' + data.name;
+				return data;
+			}
 		});
 
 		this.Department = Model.extend({
@@ -126,6 +130,31 @@ suite('model:', function() {
 		dep.id = 'marketing';
 		assert.equal(dep.id, 'marketing');
 	});
+
+	test('attributes via JSON', function() {
+		var person = new this.Person({
+				name: 'John',
+				employed_at: '2013-12-11T20:21:22Z',
+				salary: 123456,
+				age: 35
+			}),
+			personParsed = new this.Person({
+				name: 'Doe'
+			}, {
+				parse: true
+			});
+
+		assert.equal(person.name, 'John');
+		assert.equal(person.employed_at.toISOString(),
+			'2013-12-11T20:21:22.000Z');
+		assert.equal(person.salary, 123456);
+		assert.equal(person.age, 35);
+		assert.ok(!person.get('nameDouble'));
+
+		assert.equal(personParsed.name, 'Doe');
+		assert.equal(personParsed.get('nameDouble'), 'Doe Doe');
+	});
+
 
 	suite('type casting', function() {
 		test('via setters', function() {
@@ -241,6 +270,8 @@ suite('model:', function() {
 						employed_at: '2013-12-11T20:21:22Z',
 						salary: '123456'
 					}
+				}, {
+					parse: true
 				});
 
 			assert.equal(dep.id, 'marketing');
@@ -250,6 +281,7 @@ suite('model:', function() {
 			assert.equal(dep.leader.employed_at.toISOString(),
 				'2013-12-11T20:21:22.000Z');
 			assert.equal(dep.leader.salary, 123456);
+			assert.equal(dep.leader.get('nameDouble'), '123 123');
 		});
 
 		test('deep from/to JSON', function() {
@@ -361,6 +393,8 @@ suite('model:', function() {
 							name: 345
 						}
 					}
+				}, {
+					parse: true
 				}),
 				groupAlt = new this.GroupAlt({
 					id: 'development',
@@ -384,9 +418,11 @@ suite('model:', function() {
 
 			assert.ok(group.get('medals').winner instanceof this.Person);
 			assert.equal(group.get('medals').winner.name, '123');
+			assert.equal(group.get('medals').winner.get('nameDouble'), '123 123');
 
 			assert.ok(group.get('medals').winnerGroup instanceof this.Person);
 			assert.equal(group.get('medals').winnerGroup.name, '345');
+			assert.equal(group.get('medals').winnerGroup.get('nameDouble'), '345 345');
 
 			assert.equal(groupAlt.id, 'development');
 			assert.equal(groupAlt.name, 'Dev Group');
@@ -397,6 +433,7 @@ suite('model:', function() {
 
 			assert.ok(groupAlt.get('medals').winner instanceof this.Person);
 			assert.equal(groupAlt.get('medals').winner.name, '234');
+			assert.ok(!groupAlt.get('medals').winner.get('nameDouble'));
 
 			assert.equal(groupAlt.get('medals').winnerGroup, '456');
 		});

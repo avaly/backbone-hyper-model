@@ -24,7 +24,11 @@ suite('collection:', function() {
 			properties: [
 				'gender',
 				'age'
-			]
+			],
+			parse: function(data) {
+				data.nameDouble = data.name + ' ' + data.name;
+				return data;
+			}
 		});
 
 		this.Employees = Collection.extend({
@@ -122,12 +126,15 @@ suite('collection:', function() {
 						this.personJSON1,
 						this.personJSON2
 					]
+				}, {
+					parse: true
 				});
 
 			assert.ok(department.employees instanceof this.Employees);
 			assert.equal(department.employees.length, 2);
 			this.assertPerson1(department.employees.at(0));
 			this.assertPerson2(department.employees.at(1));
+			assert.equal(department.employees.at(0).get('nameDouble'), 'John John');
 		});
 
 		test('to JSON', function() {
@@ -176,12 +183,15 @@ suite('collection:', function() {
 							this.personJSON2
 						]
 					}
+				}, {
+					parse: true
 				});
 
 			assert.ok(hr.get('marketing').employees instanceof this.Employees);
 			assert.equal(hr.get('marketing').employees.length, 2);
 			this.assertPerson1(hr.get('marketing').employees.at(0));
 			this.assertPerson2(hr.get('marketing').employees.at(1));
+			assert.equal(hr.get('marketing').employees.at(0).get('nameDouble'), 'John John');
 		});
 
 		test('to JSON', function() {
