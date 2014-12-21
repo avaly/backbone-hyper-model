@@ -13,7 +13,8 @@ branches:
 
 env:
   global:
-    - secure: "O1YZIFmkKMJ0ZSnwc43PnRN5LhZGFsRnQm99RLYm4vkb5jg49rYCkekpNoullpqc+/Msz88KetbdMZciBiB+9S2gL4jAJLjWPIQrwwkrCPwslE5FVc8jMNiuTV7SMel3M5V3A7Ss1O5Er7NQUlEdChMMT4FACU0NjCFQGG/3xHI="
+    # GH_TOKEN
+    - secure: "J0QZn0Yxm2beiOhRV/l5A8bXfva7ZO829EWdgHBGYfSH5Jm02ig7+gjE/pGfvlco7YT6SoZrcPC3xoMjjM7R1xEfDn8MPphtv6NqgdAs1Rex27vNuKz6KId73tjrkikQE8GLHD6DvsZ9I+jEoVjhLsofk0oTPxLBOCSNIpzeHnQ="
 
 after_success:
   - "./tools/coverage"
