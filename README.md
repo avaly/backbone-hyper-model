@@ -1,3 +1,6 @@
+# Unmaintained!
+---
+
 # Backbone Hyper Model
 
 [![Build Status](https://travis-ci.org/avaly/backbone-hyper-model.svg)](https://travis-ci.org/avaly/backbone-hyper-model)
