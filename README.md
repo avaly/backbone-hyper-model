@@ -3,6 +3,8 @@
 
 # Backbone Hyper Model
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/avaly/backbone-hyper-model.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/avaly/backbone-hyper-model.svg)](https://travis-ci.org/avaly/backbone-hyper-model)
 [![Coverage Status](https://coveralls.io/repos/avaly/backbone-hyper-model/badge.png)](https://coveralls.io/r/avaly/backbone-hyper-model)
 [![Dependencies](https://david-dm.org/avaly/backbone-hyper-model.png)](https://david-dm.org/avaly/backbone-hyper-model)
